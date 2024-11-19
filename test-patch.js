@@ -1,16 +1,32 @@
 const axios = require('axios');
 
-/** Change URL and body according to implementation. */
-async function testPatchRequest() {
+async function testPatchUserRequest() {
   try {
-    const response = await axios.patch('http://localhost:3000/user', {
+    const response = await axios.patch('http://localhost:3000/user/1', {
       name: 'Alice Johnson',
-      email: 'alice@example.com'
+      email: 'alice.johnson@example.com',
+      subjects: [1, 2],
     });
-    console.log('Response data:', response.data);
+
+    console.log('User updated successfully:', response.data);
   } catch (error) {
-    console.error('Error:', error.response ? error.response.data : error.message);
+    console.error('Error updating user:', error.response ? error.response.data : error.message);
   }
 }
 
-testPatchRequest();
+async function testPatchSubjectRequest() {
+  try {
+    const response = await axios.patch('http://localhost:3000/subject/1', {
+      name: 'Advanced Mathematics',
+    });
+
+    console.log('Subject updated successfully:', response.data);
+  } catch (error) {
+    console.error('Error updating subject:', error.response ? error.response.data : error.message);
+  }
+}
+
+(async () => {
+  await testPatchUserRequest();
+  await testPatchSubjectRequest();
+})();
